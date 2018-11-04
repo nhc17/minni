@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FileUploadInputFor } from './file-upload-input-for.directive';
 import { BytesPipe } from './bytes.pipe';
 import { MatFileUpload } from './mat-file-upload/mat-file-upload.component';
-import { MatFileUploadQueue MatFileUploadComponent} from './mat-file-upload/mat-file-upload.component';
+import { MatFileUploadQueue} from './mat-file-upload/mat-file-upload.component';
 
 import { MatProgressBarModule, MatCardModule, MatButtonModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';

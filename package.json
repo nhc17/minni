@@ -27,6 +27,8 @@
     "angular-material-fileupload": "^1.0.1",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
+    "ngx-localstorage": "^2.2.1",
+    "ngx-perfect-scrollbar": "^7.0.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

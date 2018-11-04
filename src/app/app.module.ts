@@ -6,10 +6,14 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AuthorComponent } from './components/author/author.component';
 import { AddAuthorComponent } from './components/author/add-author/add-author.component';
+import { EditAuthorComponent } from './components/author/edit-author/edit-author.component';
 import { DeleteAuthorDialog } from './components/author/author.component';
+import { CategoryComponent } from './components/category/category.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
 import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
-import { CategoryComponent } from './components/category/category.component';
+
 import { MemberComponent } from './components/member/member.component';
 
 // Reactive Forms
@@ -23,7 +27,17 @@ import { MaterialModule } from './shared/layout/material.module';
 // Services
 import { HttpClientModule } from '@angular/common/http';
 import { RoutingModule } from './app.routing';
-import { EditAuthorComponent } from './components/author/edit-author/edit-author.component';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material';
+
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 
 
@@ -40,7 +54,9 @@ import { EditAuthorComponent } from './components/author/edit-author/edit-author
     CategoryComponent,
     MemberComponent,
     PublishComponent,
-    EditAuthorComponent
+    EditAuthorComponent,
+    AddCategoryComponent,
+    EditCategoryComponent
     
   ],
 
@@ -53,10 +69,22 @@ import { EditAuthorComponent } from './components/author/edit-author/edit-author
     MaterialModule,
     HttpClientModule,
     RoutingModule,
+    PerfectScrollbarModule
     
   ],
 
-  providers: [],
+  providers: [
+    
+    { 
+      provide: MAT_CHIPS_DEFAULT_OPTIONS,
+      useValue: {separatorKeyCodes: [ENTER, COMMA]}
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+
+],
   entryComponents: [DeleteAuthorDialog],
   bootstrap: [AppComponent]
 })

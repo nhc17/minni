@@ -27,7 +27,7 @@ const settings = {/* your settings... */ timestampsInSnapshots: true};
 db.settings(settings);
 
 var authorsCollection = db.collection('authors');
-var topicsCollection = db.collection('topics');
+var categoryCollection = db.collection('category');
 var articlesCollection = db.collection('articles');
 
 //export Google_Application_Credentials
@@ -148,46 +148,48 @@ app.get(API_URI + '/authors/:id', (req, res) => {
     })
 });
 
-// GET array of articles by topic
-app.get(API_URI + '/articles', (req, res) => {
-    let topic = req.query.topic
-    console.log(topic);
-    if (typeof(topic === 'undefined')){
-        if (topic === '') {
-            console.log('topic is undefined');
-            res.status(500).json({error: "topic is undefined"});
+// GET array of articles by category
+app.get(API_URI + '/category/:id', (req, res) => {
+    let categoryId = req.params.id;
+    console.log(categoryId);
+    if (typeof(categoryId === 'undefined')){
+        if (categoryId === '') {
+            console.log('category is undefined');
+            res.status(500).json({error: "category is undefined"});
         }
     }
-    topicsCollection
-        .where('topic', '==', topic)
-        .limit(5)
-    articlesCollection
-    .get()
-    .then(snapshot => {
-        // No need to push to an array because we're using map here to create a new array
-        let snapshotPromises = snapshot.docs.map(doc => {
-            const authorId = doc.data().author_id;
-            let articleData = doc.data();
+    categoryCollection.
+        doc(categoryId)
+        .get()
+        .then(articlesCollection
+               .where('category_id', '==', categoryId)
+                .get()
+                .then(snapshot => {
+                    // No need to push to an array because we're using map here to create a new array
+                    let snapshotPromises = snapshot.docs.map(doc => {
+                        const authorId = doc.data().author_id;
+                        let articleData = doc.data();
 
-            if (typeof authorId !== 'undefined') {
-                const authorRef = authorsCollection.doc(authorId);
-                return authorRef.get().then(authorSnapshot => {
-                    articleData.author = authorSnapshot.data();
-                    return articleData;
-                });
-            } else {
-                return articleData;
-            }
-        });
+                        if (typeof authorId !== 'undefined') {
+                            const authorRef = authorsCollection.doc(authorId);
+                            return authorRef.get().then(authorSnapshot => {
+                                articleData.author = authorSnapshot.data();
+                                return articleData;
+                            });
+                        } else {
+                            return articleData;
+                        }
+                    });
 
-        Promise.all(snapshotPromises).then(results => {
-            res.status(200).json(results);
-        });
-   })
-   .catch(err => {
-     console.log('Error getting documents', err);
-  }); 
-});
+                    Promise.all(snapshotPromises).then(results => {
+                        res.status(200).json(results);
+                    });
+            })
+           )
+            .catch(err => {
+                console.log('Error getting documents', err);
+            }); 
+            });
 
 // GET one article by title
 app.get(API_URI + '/article', (req, res) => {
@@ -213,6 +215,48 @@ app.get(API_URI + '/article', (req, res) => {
           res.status(500).json(err);
      });
   });
+
+  // GET array of categories
+app.get(API_URI + '/categories', (req, res) => {
+    categoryCollection
+    .get()
+        .then(snapshot => {
+            let categoriesArr = [];
+            snapshot.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+                var returnResult = {
+                    id: doc.id,
+                    result: doc.data()
+                }
+                categoriesArr.push(returnResult);
+            });
+            res.status(200).json(categoriesArr);
+        })
+        .catch(err => {
+            console.log('Error getting documents', err);
+            res.status(500).json(err);
+        });
+});
+
+app.get(API_URI + '/category/:id', (req, res) => {
+    let idValue = req.params.id;
+    
+    categoryCollection.
+        doc(idValue)
+        .get()
+        .then((result) => {
+            console.log(result.data());
+            var returnResult = {
+                id: idValue,
+                category_name : result.data().category_name
+            }
+            res.status(200).json(returnResult)
+        })
+        .catch(err => {
+            console.log('Error getting documents', err);
+            res.status(500).json(err);
+        })
+    });
 
 ///////////////// CREATE //////////////////////////////
   // Add one author
