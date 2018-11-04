@@ -88,38 +88,34 @@ app.get(API_URI + '/authors', (req, res) => {
   }); 
 });
 
-// Search by firstname & lastname
+// Search by firstname or lastname
 app.get(API_URI + '/author', (req, res) => {
-    let firstname = req.query.firstname;
-    let lastname = req.query.lastname;
-    console.log(firstname, lastname);
+    let keyword = req.query.keyword;
+    console.log(keyword);
 
-    if (typeof(firstname === 'undefined') 
-        && typeof(lastname === 'undefined')){
-        if (firstname === ''
-        && lastname === ''){
-        console.log('firstname and lastname are undefined');
-        res.status(500).json({error: "firstname and lastname are undefined"});
+    if (typeof(keyword === 'undefined')){
+        if (keyword === ''){
+        console.log('firstname or lastname is undefined');
+        res.status(500).json({error: "firstname or lastname is undefined"});
         }
     }
 
     authorsCollection
-        .where('firstname', '==', firstname)
-        .where('lastname', '==', lastname)
-    .get()
-    .then((result) => {
-        let authorData = []
-    
-        authorData = result.docs.map(value => {
-            return value.data();
-        });
+        .where('firstname' || 'lastname', '==', keyword)
+        .get()
+        .then((result) => {
+            let authorData = []
+        
+            authorData = result.docs.map(value => {
+                return value.data();
+            });
 
-        res.status(200).json(authorData)
-     })
-     .catch(err => {
-        console.log('Error getting documents', err);
-        res.status(500).json(err);
-    })
+            res.status(200).json(authorData)
+        })
+        .catch(err => {
+            console.log('Error getting documents', err);
+            res.status(500).json(err);
+        })
 });
 
 
@@ -238,25 +234,36 @@ app.get(API_URI + '/categories', (req, res) => {
         });
 });
 
-app.get(API_URI + '/category/:id', (req, res) => {
-    let idValue = req.params.id;
-    
-    categoryCollection.
-        doc(idValue)
+// GET a category by name
+app.get(API_URI + '/category', (req, res) => {
+    let keyword = req.query.keyword;
+     console.log(keyword);
+
+    if (typeof(keyword === 'undefined')){
+        if (keyword === ''){
+        console.log('category name is undefined');
+        res.status(500).json({error: "category name is undefined"});
+        }
+    }
+
+    categoryCollection
+        .where('category_name', '==', keyword)
         .get()
         .then((result) => {
-            console.log(result.data());
-            var returnResult = {
-                id: idValue,
-                category_name : result.data().category_name
-            }
-            res.status(200).json(returnResult)
+            let categoryData = []
+        
+            categoryData = result.docs.map(value => {
+                return value.data();
+            });
+
+            res.status(200).json(categoryData)
         })
         .catch(err => {
             console.log('Error getting documents', err);
             res.status(500).json(err);
         })
-    });
+});
+     
 
 ///////////////// CREATE //////////////////////////////
   // Add one author
