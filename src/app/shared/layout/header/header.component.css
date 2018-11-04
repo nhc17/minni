@@ -1,0 +1,12 @@
+::ng-deep .mat-toolbar{
+    z-index: 999;
+    position: fixed
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.router-link {
+    color: white;
+}

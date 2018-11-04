@@ -3,8 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBuMuz4R9R3xls1rUSUJVOmHLBqfQCMmrE",
+    authDomain: "mini-bbb5b.firebaseapp.com",
+    databaseURL: "https://mini-bbb5b.firebaseio.com",
+    projectId: "mini-bbb5b",
+    storageBucket: "mini-bbb5b.appspot.com",
+    messagingSenderId: "297530830478"
+  },
+   api_url: 'http://localhost:3000',
+  image_url: 'http://localhost:3000/images/'
+}; 
 
 /*
  * For easier debugging in development mode, you can import the following file
