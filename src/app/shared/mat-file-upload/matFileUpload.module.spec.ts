@@ -1,4 +1,4 @@
-import { MatFileUploadModule } from './mat-file-upload.module';
+import { MatFileUploadModule } from './matFileUpload.module';
 
 describe('MatFileUploadModule', () => {
   let matFileUploadModule: MatFileUploadModule;

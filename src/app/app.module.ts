@@ -15,6 +15,9 @@ import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
 
 import { MemberComponent } from './components/member/member.component';
+import { RegisterComponent } from './shared/security/register/register.component';
+import { LoginComponent } from './shared/security/login/login.component';
+
 
 // Reactive Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,12 +26,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { MaterialModule } from './shared/layout/material.module';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Services
 import { HttpClientModule } from '@angular/common/http';
 import { RoutingModule } from './app.routing';
+import { MatFileUploadModule } from './shared/mat-file-upload/matFileUpload.module';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material';
+import { environment } from '../environments/environment';
 
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -39,7 +45,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-
+// Firebase Authentication
+import { AngularFireModule} from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 
@@ -56,8 +64,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PublishComponent,
     EditAuthorComponent,
     AddCategoryComponent,
-    EditCategoryComponent
-    
+    EditCategoryComponent,
+    RegisterComponent,
+    LoginComponent
   ],
 
   imports: [
@@ -69,7 +78,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MaterialModule,
     HttpClientModule,
     RoutingModule,
-    PerfectScrollbarModule
+    MatFileUploadModule,
+    PerfectScrollbarModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule, 
+    AngularFontAwesomeModule
     
   ],
 

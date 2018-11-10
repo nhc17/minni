@@ -1,0 +1,16 @@
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign=" center center">
+  <p>Please register</p>
+  <div fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
+    <form class="example-form" [formGroup]="registerForm">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input matInput type="password" placeholder="password" formControlName="password">
+        </mat-form-field>
+      </form>    
+    </div>
+  <button mat-raised-button color="accent" (click)="signUp()">Register as Author</button>
+  <button mat-raised-button color="accent" (click)="signUp()">Register as Member</button>
+
+</div>

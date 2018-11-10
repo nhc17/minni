@@ -8,6 +8,8 @@ import { EditAuthorComponent } from './components/author/edit-author/edit-author
 import { ArticleComponent } from './components/article/article.component';
 import { CategoryComponent } from './components/category/category.component';
 import { PublishComponent } from './components/article/publish/publish.component';
+import { RegisterComponent } from './shared/security/register/register.component';
+import { LoginComponent } from './shared/security/login/login.component';
 
 
 
@@ -16,6 +18,14 @@ const appRoutes = [
     {
         path: 'Article',
         component: ArticleComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent, 
     },
     {
         path: 'Author',
@@ -37,6 +47,7 @@ const appRoutes = [
         path: 'Publish',
         component: PublishComponent,
     },
+   
     {
         path: '', 
         redirectTo: '/Article', 
@@ -55,7 +66,7 @@ const appRoutes = [
     ],
     imports: [
       BrowserModule,
-      RouterModule.forRoot(appRoutes, { enableTracing: true, preloadingStrategy: PreloadAllModules })
+      RouterModule.forRoot(appRoutes) // { enableTracing: true, preloadingStrategy: PreloadAllModules })
     ],
     exports: [ RouterModule ],
     providers: []
