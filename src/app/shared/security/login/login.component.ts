@@ -12,18 +12,16 @@ import { auth } from 'firebase/app'; // the object that does the authentication
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-
 export class LoginComponent implements OnInit {
-  
   PASSWORD_PATTERN = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/;
-  loginForm: FormGroup;
+  loginForm :FormGroup;
 
   constructor(private fb: FormBuilder, 
    // private snackSvc:  MatSnackBar,
    // private router: Router,
     public afAuth: AngularFireAuth,
     private authService: AuthService ) {
-    this.loginForm = this.fb.group({
+    this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(this.PASSWORD_PATTERN)]],
     })
@@ -36,7 +34,7 @@ export class LoginComponent implements OnInit {
  
   loginGithub(){
     this.afAuth.auth.signInWithPopup(new auth.GithubAuthProvider());
-  } 
+  }
 
   loginWithEmail(){
     const formValue = this.loginForm.value;

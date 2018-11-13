@@ -10,8 +10,9 @@ import { MatSnackBar } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CategoryService {
-  private categoryRootApiUrl = `${environment.api_url}/api/category`; 
+  private categoryRootApiUrl = `${environment.api_url}/api/categories`; 
   private editCategoryNameSource = new Subject<string>();
   editCategoryName$ = this.editCategoryNameSource.asObservable();
   
@@ -19,12 +20,13 @@ export class CategoryService {
       private http: HttpClient,
       public snackBar: MatSnackBar) { }
 
+  // GET an array of categories
   public getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoryRootApiUrl)
      .pipe(catchError(this.handleError<Category[]>('getCategories')));
   }
 
-  editNameBroadcast(name: string) {
+   editNameBroadcast(name: string) {
     this.editCategoryNameSource.next(name);
   }
 
@@ -42,6 +44,12 @@ export class CategoryService {
   addCategory(category): Observable<Category> {
     return this.http.post<Category>(this.categoryRootApiUrl, category)
     .pipe(catchError(this.handleError<Category>('addCategory')));
+  }
+
+  deleteCategory(idValue): Observable<Category> {
+    console.log(idValue);
+    return this.http.delete<Category>(`${this.categoryRootApiUrl}?id=${idValue}`)
+    .pipe(catchError(this.handleError<Category>('deleteCategory')));
   }
 
   private handleError<T>(operation = 'operation', result?: T){

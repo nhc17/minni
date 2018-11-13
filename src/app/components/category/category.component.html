@@ -1,30 +1,26 @@
-
 <mat-toolbar class="main-toolbar">
   <mat-toolbar-row>
       <span>Categories</span>
       <span class="example-spacer"></span>
-      <button mat-raised-button color="accent" (click)="onNew()">New</button>
+      <div class="add-searchBtn" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2vw">
+            <button mat-raised-button color="accent" (click)="onAdd()">Add</button>
+            <button mat-raised-button color="accent" (click)="onSearch()">Search</button></div>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="separator"></div>
-<br>
-<mat-grid-list cols="3" rowHeight="4:3">
-    <mat-grid-tile>
-      <app-add-category *ngIf="isNew" (categoryEvt)="onAddCategory($event)"></app-add-category>
-      <app-edit-category *ngIf="!isNew" (categoryEditEvt)="onEditCategory($event)"></app-edit-category>
+<mat-grid-list class="author-details" *ngFor="let category of categories || async" cols="4">
+    
+    <mat-grid-tile colspan="2" rowspan="1">
+        <div>
+            <h2>{{ category.result.category_name }}  </h2>
+          
+        </div>
     </mat-grid-tile>
-    <mat-grid-tile colspan="1" rowspan="2">
-        <perfect-scrollbar style="max-width: 600px; max-height: 400px;" [config]="config">
-            <div class="container">
-                <ul *ngFor="let category of categories; let i = index">
-                  <li><button mat-flat-button (click)="doEdit(i, category.result.name)">{{category.result.name}}
-                    </button>
-                  </li>
-                </ul>
-              </div>
-        </perfect-scrollbar>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <div class="editBtn">
+            <button mat-raised-button color="primary" (click)="onEdit(category.id)" >Edit</button>
+            <button mat-raised-button color="warn" (click)="onDelete(category.id, Category.result.category_name)">Delete</button>
+        </div>
     </mat-grid-tile>
-   
-  </mat-grid-list>
-
-  
+</mat-grid-list>
+<mat-divider [inset]="true" *ngIf="!last"></mat-divider>

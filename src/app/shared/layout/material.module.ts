@@ -39,7 +39,7 @@ import {
  } from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { MdcChipsModule } from '@angular-mdc/web';
 
  const MODULES = [
     MatAutocompleteModule,
@@ -77,11 +77,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    FlexLayoutModule  
+    FlexLayoutModule,
+    MdcChipsModule
 ];
 
  @NgModule({
-     imports: MODULES,
+     imports: MODULES, 
      exports: MODULES,
      declarations: []
  })

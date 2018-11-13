@@ -44,7 +44,7 @@ export class AuthorService {
   deleteAuthor(idValue): Observable<Author> {
     console.log(idValue);
     return this.http.delete<Author>(`${this.authorRootApiUrl}?id=${idValue}`)
-    .pipe(catchError(this.handleError<Author>('editAuthor')));
+    .pipe(catchError(this.handleError<Author>('deleteAuthor')));
   }
 
   private handleError<T>(operation = 'operation', result?: T){
