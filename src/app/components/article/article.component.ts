@@ -42,7 +42,7 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-displayedColumns: string[] = ['id', 'category_name', 'title', 'author_firstname', 'post_date'];
+displayedColumns: string[] = ['thumbnail_url', 'category_name', 'title', 'author', 'post_date', 'summary'];
 //dataSource = new MatTableDataSource(this.articles);
 
 

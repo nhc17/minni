@@ -33,29 +33,38 @@
 
       <mat-table  [dataSource]="dataSource"  *ngFor="let article of articles || async"  class="table" matSort>
                 
-            <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>ID </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{this.articles.id }} </mat-cell>>
+            <ng-container matColumnDef="thumbnail_url">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> <img src="{{ article.result.thumbnail_url }}"/> </mat-cell>>
             </ng-container>
         
             <ng-container matColumnDef="category_name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{article.result.category_name }} </mat-cell>>
+                <mat-cell *matCellDef="let article"> {{ article.result.category_name }} </mat-cell>>
             </ng-container>
         
             <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{article.result.title }} </mat-cell>>
+                <mat-cell *matCellDef="let article"> {{ article.result.title }} </mat-cell>>
             </ng-container>
                     
-            <ng-container matColumnDef="author_firstname">
+            <ng-container matColumnDef="author">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Author </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{article.result.author_firstname }} </mat-cell>>
+                <mat-cell *matCellDef="let article" fxLayout="column">   <img src="{{ article.result.author_thumbnail_url }}"/> <p> {{ article.result.author_firstname }} {{ article.result.author_lastname }} </p></mat-cell>>
+  
+               
             </ng-container>
         
+           
+
             <ng-container matColumnDef="post_date">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Post Date </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{article.result.post_date }} </mat-cell>>
+                <mat-cell *matCellDef="let article"> {{ article.result.post_date }} </mat-cell>>
+            </ng-container>
+
+            <ng-container matColumnDef="summary">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Excerpt </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{ article.result.summary }} </mat-cell>>
             </ng-container>
                 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
