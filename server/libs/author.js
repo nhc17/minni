@@ -31,7 +31,7 @@ module.exports = function() {
     .catch(err => {
         console.log('Error getting documents', err);
         res.status(500).json(err);
-    }); 
+        }); 
     });
 
     // Search by firstname & lastname    ->  /author?firstname=Charlie&lastname=Lim

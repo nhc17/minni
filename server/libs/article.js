@@ -15,6 +15,30 @@ module.exports = function() {
     const router = express.Router();
 
     /////////////////////////////////////////////////// READ /////////////////////////////////////////////////////
+    // GET an array of articles
+    router.get('/articles', (req, res) => {
+        articlesCollection
+        .get()
+        .then(snapshot => {
+            let articlesArr = [];
+            snapshot.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+                var returnResult = {
+                    id: doc.id,
+                    result: doc.data()
+                }
+                articlesArr.push(returnResult);       
+        });
+        res.status(200).json(articlesArr);
+    })
+    .catch(err => {
+        console.log('Error getting documents', err);
+        res.status(500).json(err);
+        }); 
+    });
+      
+    
+    
     // GET array of articles by category     ->   /category/KQ6sO3ucXEpfXvjZ0ko3
     router.get('/category/:id', (req, res) => {
         let categoryId = req.params.id;

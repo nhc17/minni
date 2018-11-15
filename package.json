@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-mdc/web": "^0.41.1",
     "@angular/animations": "^6.1.10",
     "@angular/cdk": "^7.0.2",
     "@angular/common": "^6.1.0",
@@ -25,6 +26,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@material/chips": "^0.41.0",
     "angular-font-awesome": "^3.1.2",
     "angular-material-fileupload": "^1.0.1",
     "core-js": "^2.5.4",

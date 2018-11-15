@@ -1,12 +1,33 @@
-<br>
-<mat-grid-list cols="4" rowHeight="1:1" *ngFor="let article of articles">
-    <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-    <mat-grid-tile colspan="2" rowspan="1">
-        <div>
-            <h2>{{article.title}}</h2> 
-            <span>by <strong>{{article.authorName}}</strong> {{article.publish_date | date:'medium'}}</span>
-            <p>{{article.article}}</p>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
-<mat-divider></mat-divider>
+<mat-toolbar class="main-toolbar">
+        <mat-toolbar-row>
+            <span>Articles</span>
+            <span class="example-spacer"></span>
+            <div class="add-searchBtn" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2vw">
+                <!--  <button mat-raised-button color="accent" (click)="onAdd()">Add</button> -->
+                  <button mat-raised-button color="accent" (click)="onSearch()">Search</button></div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div class="separator"></div>
+      <mat-grid-list class="article-details" *ngFor="let article of articles || async" cols="4">
+          <mat-grid-tile colspan="1" rowspan="1">
+           <img src="{{ article.result.thumbnail_url }}"/>
+          </mat-grid-tile>
+           <mat-grid-tile colspan="1" rowspan="1">
+              <div>
+                  <h1>{{ article.result.category_name }}</h1>
+                  <img src="{{ article.result.author_thumbnail_url }}"/>
+                  <p>{{ article.result.author_firstname }} {{ article.result.author_lastname }}</p>  
+              </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1">
+              <div>
+                  <h2>{{ article.result.title }}</h2>
+                  <p>{{ article.result.post_date }}</p>
+                  <p>{{ article.result.duration }}</p>
+                   <p>{{ article.result.summary }}</p>
+              </div>
+          </mat-grid-tile>
+          
+      </mat-grid-list>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+      

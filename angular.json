@@ -125,5 +125,10 @@
       }
     }
   },
-  "defaultProject": "minni"
+  "defaultProject": "minni",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

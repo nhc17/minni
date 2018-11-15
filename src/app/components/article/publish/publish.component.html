@@ -1,3 +1,6 @@
-<p>
-  publish works!
-</p>
+<mat-grid-tile colspan="1" rowspan="1">
+    <div class="editBtn">
+        <button mat-raised-button color="primary" (click)="onEdit(article.id)" >Edit</button>
+        <button mat-raised-button color="warn" (click)="onDelete(article.id, article.result.firstname, article.result.lastname)">Delete</button>
+    </div>
+</mat-grid-tile>
