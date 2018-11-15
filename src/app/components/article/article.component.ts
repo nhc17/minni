@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { ArticleService } from '../../shared/services/article.service';
 import { Article} from '../../shared/models/article';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
+import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
 
 /*
 export interface DialogData {
@@ -21,6 +22,7 @@ export interface DialogData {
 export class ArticleComponent implements OnInit {
 
   articles: Article[];
+  dataSource = (new MatTableDataSource([]));
 
   constructor(private articleSvc: ArticleService
     /*
@@ -31,9 +33,39 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{
-      this.articles = result;
+        this.articles = result;
+        this.dataSource = new MatTableDataSource(result);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+     
+  
     });
   }
+
+displayedColumns: string[] = ['id', 'category_name', 'title', 'author_firstname', 'post_date'];
+//dataSource = new MatTableDataSource(this.articles);
+
+
+// sort
+ @ViewChild(MatSort) sort: MatSort;
+
+ // paginator
+ length = 100;
+ pageSize = 5;
+ pageSizeOption: number[] = [5, 10, 20, 50];
+ @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
   onEdit(idValue){

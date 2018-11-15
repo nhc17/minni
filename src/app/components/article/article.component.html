@@ -30,4 +30,42 @@
           
       </mat-grid-list>
       <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+
+      <mat-table  [dataSource]="dataSource"  *ngFor="let article of articles || async"  class="table" matSort>
+                
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>ID </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{this.articles.id }} </mat-cell>>
+            </ng-container>
+        
+            <ng-container matColumnDef="category_name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.category_name }} </mat-cell>>
+            </ng-container>
+        
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.title }} </mat-cell>>
+            </ng-container>
+                    
+            <ng-container matColumnDef="author_firstname">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Author </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.author_firstname }} </mat-cell>>
+            </ng-container>
+        
+            <ng-container matColumnDef="post_date">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Post Date </mat-header-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.post_date }} </mat-cell>>
+            </ng-container>
+                
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>>
+            </mat-table>
+        
+            <mat-paginator [length]="length"
+                        [pageSize]="pageSize"
+                        [pageSizeOptions]="pageSizeOptions" 
+                        showFirstLastButtons>
+            </mat-paginator>
+        
       
