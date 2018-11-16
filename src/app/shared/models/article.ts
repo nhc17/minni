@@ -5,7 +5,7 @@ export interface Article {
     tags: string;
     author_firstname: string;
     author_lastname: string;
-    author_thumbnail_url: string;
+    author_thumbnail_url?: string;
     post_date: Date;
     duration: string;
     thumbnail_url?: string;

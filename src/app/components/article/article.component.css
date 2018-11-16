@@ -18,33 +18,7 @@ img {
     width: 150px; 
 }
 
-.article-details {
-    margin-top: 50px;
-    margin-bottom: 50px;   
-}
-
-.editBtn {
-    display: flex;
-    flex-flow: column wrap;
-}
-
-
-.author_thumbnail {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px 40px 5px;
-    border: 3px solid blue;
-}
-
-.article_thumbnail {
-    width: 30px;
-    height: 30px;
-    border-radius: 5px 40px 5px;
-    border: 3px solid blue;
-}
-
-.article_image {
-    width: 100px;
-    height: 80px;
-   
+.table {
+    padding-top: 20px;
+    width: 100%;
 }

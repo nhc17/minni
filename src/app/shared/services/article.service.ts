@@ -37,12 +37,17 @@ publishArticle(article): Observable<Article> {
      .pipe(catchError(this.handleError<Article>('publishArticles')));
   }
 
- editArticle(details): Observable<Article> {
-    console.log(details);
-    return this.http.put<Article>(this.articlesRootApiUrl, details)
+ editArticle(id): Observable<Article> {
+    console.log(id);
+    return this.http.put<Article>(this.articlesRootApiUrl, id)
      .pipe(catchError(this.handleError<Article>('editArticle')));
   }
 
+  deleteArticle(idValue): Observable<Article> {
+    console.log(idValue);
+    return this.http.delete<Article>(`${this.articlesRootApiUrl}?id=${idValue}`)
+    .pipe(catchError(this.handleError<Article>('deleteArticle')));
+  }
   
   private handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {

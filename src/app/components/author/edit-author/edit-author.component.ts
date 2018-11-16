@@ -57,10 +57,11 @@ export class EditAuthorComponent implements OnInit {
       email: this.editAuthorForm.get('email').value,
       profile: this.editAuthorForm.get("profile").value 
     }
-    this.authorSvc.addAuthor(authorObj).subscribe((result)=>{
+    this.authorSvc.editAuthor(authorObj).subscribe((result)=>{
       let snackBarRef = this.snackSvc.open("Author updated", 'Done', {
         duration: 3000
       });
+      this.editAuthorForm.reset();
     })
   }
 

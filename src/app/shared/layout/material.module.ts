@@ -41,6 +41,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MdcChipsModule } from '@angular-mdc/web';
 
+
  const MODULES = [
     MatAutocompleteModule,
     MatBadgeModule,

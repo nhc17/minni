@@ -49,6 +49,7 @@ export class AddAuthorComponent implements OnInit {
       let snackBarRef = this.snackSvc.open("Author added", 'Done', {
         duration: 3000
       });
+      this.addAuthorForm.reset();
     })
   }
 

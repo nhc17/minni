@@ -21,7 +21,8 @@ export class AuthorComponent implements OnInit {
 
   authors: Author[];
 
-  constructor(private authorSvc: AuthorService, 
+  constructor(
+    private authorSvc: AuthorService, 
     private router: Router,
     public dialog: MatDialog,
     private snackSvc: MatSnackBar) { }

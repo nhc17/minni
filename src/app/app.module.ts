@@ -13,7 +13,7 @@ import { AddCategoryComponent } from './components/category/add-category/add-cat
 import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
 import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
-
+import { EditArticleComponent } from './components/article/edit-article/edit-article.component';
 import { MemberComponent } from './components/member/member.component';
 import { RegisterComponent } from './shared/security/register/register.component';
 import { LoginComponent } from './shared/security/login/login.component';
@@ -27,6 +27,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { MaterialModule } from './shared/layout/material.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ArticleThumbnailPreloadDirective } from './shared/layout/img-preload/article-thumbnail-preload.directive';
+import { MatSortModule,  MatPaginatorModule } from '@angular/material';
+import { QuillModule } from 'ngx-quill';
+
 
 // Services
 import { HttpClientModule } from '@angular/common/http';
@@ -51,6 +55,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +71,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AddCategoryComponent,
     EditCategoryComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ArticleThumbnailPreloadDirective,
+    EditArticleComponent
   ],
 
   imports: [
@@ -82,8 +89,10 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     PerfectScrollbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, 
-    AngularFontAwesomeModule
-    
+    AngularFontAwesomeModule,
+    MatSortModule, MatPaginatorModule,
+    QuillModule
+   
   ],
 
   providers: [
@@ -95,7 +104,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
+    },
+   
 
 ],
   entryComponents: [DeleteAuthorDialog],

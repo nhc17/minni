@@ -7,7 +7,10 @@ import { AddAuthorComponent } from './components/author/add-author/add-author.co
 import { EditAuthorComponent } from './components/author/edit-author/edit-author.component';
 import { ArticleComponent } from './components/article/article.component';
 import { CategoryComponent } from './components/category/category.component';
+import { AddCategoryComponent } from './components/category/add-category/add-category.component';
+import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
 import { PublishComponent } from './components/article/publish/publish.component';
+import { EditArticleComponent } from './components/article/edit-article/edit-article.component';
 import { RegisterComponent } from './shared/security/register/register.component';
 import { LoginComponent } from './shared/security/login/login.component';
 
@@ -44,10 +47,21 @@ const appRoutes = [
         component: CategoryComponent,
     },
     {
+        path: 'Category/Add',
+        component: AddCategoryComponent,
+    },
+    {
+        path: 'Category/Edit/:id',
+        component: EditCategoryComponent,
+    },
+    {
         path: 'Publish',
         component: PublishComponent,
     },
-   
+    {
+        path: 'Article/Edit/:id',
+        component: EditArticleComponent,
+    },
     {
         path: '', 
         redirectTo: '/Article', 

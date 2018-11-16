@@ -1,18 +1,17 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { ArticleService } from '../../shared/services/article.service';
 import { Article} from '../../shared/models/article';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
-import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 
-/*
+
 export interface DialogData {
   id: string;
-  firstname: string;
-  lastname: string;
+  title: string;
 }
-*/
+
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -22,66 +21,61 @@ export interface DialogData {
 export class ArticleComponent implements OnInit {
 
   articles: Article[];
+  displayedColumns: string[] = [ 'category_name', 'title', 'author', 'post_date', 'summary', 'options'];
   dataSource = (new MatTableDataSource([]));
 
-  constructor(private articleSvc: ArticleService
-    /*
+       
+  @ViewChild(MatSort) sort: MatSort;
+
+  length = 100;
+  pageSize = 5;
+  pageSizeOption: number[] = [5, 10, 20, 50];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+ 
+  @ViewChild('filter') filter: ElementRef;
+
+  constructor(
+    private articleSvc: ArticleService,
     private router: Router,
     public dialog: MatDialog,
-    private snackSvc: MatSnackBar */
-    ) { }
+    private snackSvc: MatSnackBar) { }
 
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{
         this.articles = result;
-        this.dataSource = new MatTableDataSource(result);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-     
-  
+        this.dataSource = new MatTableDataSource(result);    
     });
   }
 
-displayedColumns: string[] = ['thumbnail_url', 'category_name', 'title', 'author', 'post_date', 'summary'];
-//dataSource = new MatTableDataSource(this.articles);
-
-
-// sort
- @ViewChild(MatSort) sort: MatSort;
-
- // paginator
- length = 100;
- pageSize = 5;
- pageSizeOption: number[] = [5, 10, 20, 50];
- @ViewChild(MatPaginator) paginator: MatPaginator;
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-  onEdit(idValue){
-    console.log(idValue);
-    this.router.navigate([`/Article/Edit/${idValue}`]);
+  
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
-  onAdd(){
-    this.router.navigate(['/Article/Add']);
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+   }
+
+  
+
+
+  
+  onEdit(id){
+    console.log(id);
+    this.router.navigate([`/Article/Edit/${id}`]);
   }
 
 
-  onDelete(idValue, firstname, lastname) {
+  onPublish(){
+    this.router.navigate(['/Publish']);
+  }
+
+
+  onDelete(idValue, title) {
     const dialogRef = this.dialog.open(DeleteArticleDialog, {
       width: '250px',
-      data: {id: idValue, firstname: firstname, lastname: lastname}
+      data: {id: idValue, title: title}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -120,6 +114,6 @@ export class DeleteArticleDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
-*/
+
 
 }
