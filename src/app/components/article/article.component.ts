@@ -29,15 +29,7 @@ export class ArticleComponent implements OnInit {
   displayedColumns: string[] = [ 'category_name', 'title', 'author', 'post_date', 'summary', 'options'];
   dataSource = (new MatTableDataSource([]));
 
-  // For the categories search dropdown.
- // public categories = categories;
-  public category: string;
-  public categoriesControl = new FormControl('');
-
-  // For last name query
-  public dataLength: number;
-  public searchTerm$ = new Subject<string>();
-       
+         
   @ViewChild(MatSort) sort: MatSort;
 
   length = 100;
@@ -52,8 +44,7 @@ export class ArticleComponent implements OnInit {
     private router: Router,
     private articleSvc: ArticleService,
     public dialog: MatDialog,
-    private snackSvc: MatSnackBar,
-   ) { }
+    private snackSvc: MatSnackBar) { }
 
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{
@@ -75,9 +66,9 @@ export class ArticleComponent implements OnInit {
 
  
   
-  onEdit(id){
-    console.log(id);
-    this.router.navigate([`/Article/Edit/${id}`]);
+  onEdit(idValue){
+    console.log(idValue);
+    this.router.navigate([`/Article/Edit/${idValue}`]);
   }
 
 

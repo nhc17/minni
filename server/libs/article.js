@@ -169,7 +169,7 @@ module.exports = function() {
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     router.delete('/articles', (req, res) => {
-        let idValue = article.id;
+        let idValue = req.query.id;
         articlesCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {

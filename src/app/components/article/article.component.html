@@ -11,36 +11,15 @@
 
       <div class="separator"></div>
 
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-
-        <mat-form-field> 
-            <mat-select placeholder="Search by category" [formControl]="categoriesControl">
-                <mat-option *ngFor="let category of categories"
-                            [value]="category"
-                            (click)="searchCategories(category)">{{ category }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-
-        <!-- Last name query. -->
-              <mat-form-field id="searchField">
-                <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by last name">
-                  <mat-hint fxLayoutAlign="center">Enter at least first 3 letters.</mat-hint>
-              </mat-form-field>
-        </div>
-
-        <div class="separator"></div>
-
 <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start center">
 
       <mat-table  [dataSource]="dataSource" class="table" matSort>
-             <!--   
+             
             <ng-container matColumnDef="thumbnail_url">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>>
                 <mat-cell *matCellDef="let article"> <img src="{{ article.result.thumbnail_url || defaultImg_url }}" onError="this.defaultImg_url" class="img"/> </mat-cell>>
             </ng-container>
-        -->
+        
             <ng-container matColumnDef="category_name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>>
                 <mat-cell *matCellDef="let article"> {{ article.result.category_name }} </mat-cell>>

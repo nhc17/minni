@@ -122,7 +122,7 @@ module.exports = function() {
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     // Delete an author
     router.delete('/authors', (req, res) => {
-        let idValue = author.id;
+        let idValue = req.query.id;
         authorsCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {
