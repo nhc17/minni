@@ -37,17 +37,20 @@ export class AuthorService {
       .pipe(catchError(this.handleError<Author>('getAuthor')));
   }
 
-  editAuthor(details): Observable<Author> {
-    console.log(details);
-    return this.http.put<Author>(this.authorsRootApiUrl, details)
-    .pipe(catchError(this.handleError<Author>('editAuthor')));
-  }
-
+   // Add an author
    addAuthor(author): Observable<Author> {
     return this.http.post<Author>(this.authorsRootApiUrl, author)
     .pipe(catchError(this.handleError<Author>('addAuthor')));
   }
 
+   // Edit an author
+   editAuthor(details): Observable<Author> {
+    console.log(details);
+    return this.http.put<Author>(this.authorsRootApiUrl, details)
+    .pipe(catchError(this.handleError<Author>('editAuthor')));
+  }
+  
+  // Delete an author  
   deleteAuthor(idValue): Observable<Author> {
     console.log(idValue);
     return this.http.delete<Author>(`${this.authorsRootApiUrl}?id=${idValue}`)

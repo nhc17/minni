@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AuthorService } from '../../shared/services/author.service';
-import { Author } from '../../shared/models/author';
 import { Router } from '@angular/router';
+import { Author } from '../../shared/models/author';
+import { AuthorService } from '../../shared/services/author.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
@@ -22,8 +22,8 @@ export class AuthorComponent implements OnInit {
   authors: Author[];
 
   constructor(
-    private authorSvc: AuthorService, 
     private router: Router,
+    private authorSvc: AuthorService, 
     public dialog: MatDialog,
     private snackSvc: MatSnackBar) { }
 

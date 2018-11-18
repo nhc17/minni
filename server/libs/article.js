@@ -158,7 +158,7 @@ module.exports = function() {
     router.put('/articles', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
         console.log(JSON.stringify(req.body));
         let article = {... req.body};
-        let idValue = req.params.id;        
+        let idValue = article.id;        
         console.log(idValue);       
         articlesCollection.doc(idValue).update(
             article,
@@ -169,7 +169,7 @@ module.exports = function() {
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     router.delete('/articles', (req, res) => {
-        let idValue = req.params.id;
+        let idValue = article.id;
         articlesCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {

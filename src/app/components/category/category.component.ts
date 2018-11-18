@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { CategoryService } from '../../shared/services/category.service';
-import { Category } from '../../shared/models/category';
 import { Router } from '@angular/router';
+import { Category } from '../../shared/models/category';
+import { CategoryService } from '../../shared/services/category.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 
@@ -21,8 +21,9 @@ export class CategoryComponent implements OnInit {
 
   categories: Category[];
 
-  constructor(private catSvc: CategoryService, 
+  constructor(
     private router: Router,
+    private catSvc: CategoryService, 
     public dialog: MatDialog,
     private snackSvc: MatSnackBar) { }
 

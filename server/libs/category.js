@@ -63,8 +63,8 @@ module.exports = function() {
             })
     });
 
-// GET a category by id  ->   api/category/tqAnMjzk79TEZbCVWBIO
-router.get('/category/:id', (req, res) => {
+// GET a category by id  ->   api/categories/tqAnMjzk79TEZbCVWBIO
+router.get('/categories/:id', (req, res) => {
     let idValue = req.params.id;
     
     categoriesCollection
@@ -101,7 +101,7 @@ router.get('/category/:id', (req, res) => {
     router.put('/categories', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
         console.log(JSON.stringify(req.body));
         let category= {... req.body};
-        let idValue = req.params.id;
+        let idValue = category.id;
         console.log(idValue);        
         categoriesCollection.doc(idValue).update(
             category,
@@ -112,7 +112,7 @@ router.get('/category/:id', (req, res) => {
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     router.delete('/categories', (req, res) => {
-        let idValue = req.params.id;
+        let idValue = category.id;
         categoriesCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {

@@ -3,6 +3,10 @@
     <span><a routerLink="/Article" class="router-link">Minni </a></span>
       <span class="example-spacer"></span>
       <div fxShow="true" fxHide.xs="true">
+          <button class="nav-items" (click)="navigateToArticle()">
+              <i class="fas fa-home fa-2x"></i>&nbsp;&nbsp;
+             <span>Home</span>
+           </button>
             <button class="nav-items" (click)="navigateToArticle()">
                <i class="fas fa-business-time fa-2x"></i>&nbsp;&nbsp;
               <span>Work</span>

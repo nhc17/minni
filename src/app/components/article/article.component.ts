@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../shared/services/article.service';
 import { Article} from '../../shared/models/article';
-import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { CategoryComponent } from '../category/category.component';
 import { merge, Subject, Observable } from 'rxjs';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+
+
 
 export interface DialogData {
   id: string;
@@ -46,11 +48,12 @@ export class ArticleComponent implements OnInit {
   
 
   constructor(
-    private articleSvc: ArticleService,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
+    private articleSvc: ArticleService,
     public dialog: MatDialog,
     private snackSvc: MatSnackBar,
-    private activatedRoute: ActivatedRoute) { }
+   ) { }
 
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{

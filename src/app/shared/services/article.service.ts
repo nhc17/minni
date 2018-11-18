@@ -30,11 +30,11 @@ export class ArticleService {
   .pipe(catchError(this.handleError<Article[]>('getArticlesbyCategory')));
 }
   
- // GET an array of articles by Author
- public getArticlesbyAuthor(idValue): Observable<Article[]> {
-  return this.http.get<Article[]>(`${this.articlesRootApiUrl}/${idValue}`)
-  .pipe(catchError(this.handleError<Article[]>('getArticlesbyAuthor')));
-}
+  // GET an array of articles by Author
+  public getArticlesbyAuthor(idValue): Observable<Article[]> {
+    return this.http.get<Article[]>(`${this.articlesRootApiUrl}/${idValue}`)
+    .pipe(catchError(this.handleError<Article[]>('getArticlesbyAuthor')));
+  }
 
   //Get a single article
   public getArticle(idValue): Observable<Article> {
@@ -42,18 +42,20 @@ export class ArticleService {
       .pipe(catchError(this.handleError<Article>('getArticle')));
   }
 
-
+  // Add an article
   publishArticle(article): Observable<Article> {
       return this.http.post<Article>(this.articlesRootApiUrl, article)
       .pipe(catchError(this.handleError<Article>('publishArticles')));
     }
 
+  // Edit an article  
   editArticle(details): Observable<Article> {
     console.log(details);
     return this.http.put<Article>(this.articlesRootApiUrl, details)
      .pipe(catchError(this.handleError<Article>('editArticle')));
   }
 
+  // Delete an article
   deleteArticle(idValue): Observable<Article> {
     console.log(idValue);
     return this.http.delete<Article>(`${this.articlesRootApiUrl}?id=${idValue}`)

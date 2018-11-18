@@ -19,10 +19,6 @@ import { LoginComponent } from './shared/security/login/login.component';
 
 const appRoutes = [
     {
-        path: 'Article',
-        component: ArticleComponent
-    },
-    {
         path: 'register',
         component: RegisterComponent
     },
@@ -53,6 +49,10 @@ const appRoutes = [
     {
         path: 'Category/Edit/:id',
         component: EditCategoryComponent,
+    },
+    {
+        path: 'Article',
+        component: ArticleComponent
     },
     {
         path: 'Publish',

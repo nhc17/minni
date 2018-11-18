@@ -69,8 +69,8 @@ module.exports = function() {
     });
 
 
-    // GET an author by id  ->   api/author/tqAnMjzk79TEZbCVWBIO
-    router.get('/author/:id', (req, res) => {
+    // GET an author by id  ->   api/authors/tqAnMjzk79TEZbCVWBIO
+    router.get('/authors/:id', (req, res) => {
         let idValue = req.params.id;
         
         authorsCollection
@@ -122,7 +122,7 @@ module.exports = function() {
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     // Delete an author
     router.delete('/authors', (req, res) => {
-        let idValue = req.query.id;
+        let idValue = author.id;
         authorsCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {

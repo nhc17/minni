@@ -13,6 +13,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  navigateToArticle() {
+  this.router.navigate(['/Article']);
+  }
+  
   navigateToLogin(){
     this.router.navigate(['/login']);
   }

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
-import { MatSnackBar } from '@angular/material';
-import { Article } from '../../../shared/models/article';
-import { ArticleService } from '../../../shared/services/article.service';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { Article } from '../../../shared/models/article';
+import { ArticleService } from '../../../shared/services/article.service';
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-edit-article',
@@ -28,10 +28,11 @@ export class EditArticleComponent implements OnInit  {
 
 
   constructor(
-    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private articleSvc: ArticleService,
+    private fb: FormBuilder,
     private snackSvc: MatSnackBar,
-    private activatedRoute: ActivatedRoute) {
+    ) {
       this.editArticleForm = fb.group({
         category_name: ['', Validators.required],
         title: ['', Validators.required],
@@ -77,6 +78,7 @@ export class EditArticleComponent implements OnInit  {
       console.log(this.editArticleForm.get("category_name").value);
       console.log(this.editArticleForm.get("title").value);
       var articleObj: Article = {
+        id: this.article.id,
         category_name: this.editArticleForm.get("category_name").value,
         title: this.editArticleForm.get("title").value,
         tags: this.editArticleForm.get("tags").value,

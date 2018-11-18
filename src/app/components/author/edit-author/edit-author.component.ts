@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
-import { MatSnackBar } from '@angular/material';
+import { environment } from '../../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 import { Author } from '../../../shared/models/author';
 import { AuthorService } from '../../../shared/services/author.service';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../../environments/environment';
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-edit-author',
@@ -28,10 +28,11 @@ export class EditAuthorComponent implements OnInit {
  
 
   constructor(
-    private fb: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private authorSvc: AuthorService, 
+    private fb: FormBuilder,
     private snackSvc: MatSnackBar,
-    private activatedRoute: ActivatedRoute) {
+   ) {
       this.editAuthorForm = fb.group({
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],

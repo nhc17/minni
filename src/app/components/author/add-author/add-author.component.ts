@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-import { MatSnackBar } from '@angular/material';
+import { environment } from '../../../../environments/environment';
 import { Author } from '../../../shared/models/author';
 import { AuthorService } from '../../../shared/services/author.service';
-import { environment } from '../../../../environments/environment';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-author',
@@ -29,7 +28,9 @@ export class AddAuthorComponent implements OnInit {
     thumbnail_url: new FormControl('')
   });
 
-  constructor(private authorSvc: AuthorService, private snackSvc: MatSnackBar) { }
+  constructor(
+    private authorSvc: AuthorService, 
+    private snackSvc: MatSnackBar) { }
 
   ngOnInit() {
   }

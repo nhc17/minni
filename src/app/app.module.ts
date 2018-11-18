@@ -86,14 +86,13 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     SharedModule,
     MaterialModule,
     HttpClientModule,
-    RoutingModule,
     MatFileUploadModule,
     PerfectScrollbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, 
     AngularFontAwesomeModule,
     MatSortModule, MatPaginatorModule,
-   
+    RoutingModule
   ],
 
   providers: [
