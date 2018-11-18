@@ -12,7 +12,8 @@ import { MatSnackBar } from '@angular/material';
 
 export class AuthorService {
 
-  private authorRootApiUrl = `${environment.api_url}/api/authors`;
+  private authorsRootApiUrl = `${environment.api_url}/api/authors`;
+  private searchAuthorApiUrl = this.authorsRootApiUrl + "/search";
 
   constructor(
     private http: HttpClient,
@@ -20,30 +21,36 @@ export class AuthorService {
 
   // Get an array of authors
   public getAuthors(): Observable<Author[]> {
-    return this.http.get<Author[]>(this.authorRootApiUrl)
+    return this.http.get<Author[]>(this.authorsRootApiUrl)
       .pipe(catchError(this.handleError<Author[]>('getAuthors')));
   }
 
-  //Get a single author
+  //Get a single author by id
   public getAuthor(idValue): Observable<Author> {
-    return this.http.get<Author>(`${this.authorRootApiUrl}/${idValue}`)
+    return this.http.get<Author>(`${this.authorsRootApiUrl}/${idValue}`)
+      .pipe(catchError(this.handleError<Author>('getAuthor')));
+  }
+
+  //Get a single author by name - need to test out
+  public getAuthorbyName(details): Observable<Author> {
+    return this.http.get<Author>(`${this.searchAuthorApiUrl}/${details}`)
       .pipe(catchError(this.handleError<Author>('getAuthor')));
   }
 
   editAuthor(details): Observable<Author> {
     console.log(details);
-    return this.http.put<Author>(this.authorRootApiUrl, details)
+    return this.http.put<Author>(this.authorsRootApiUrl, details)
     .pipe(catchError(this.handleError<Author>('editAuthor')));
   }
 
-  addAuthor(author): Observable<Author> {
-    return this.http.post<Author>(this.authorRootApiUrl, author)
+   addAuthor(author): Observable<Author> {
+    return this.http.post<Author>(this.authorsRootApiUrl, author)
     .pipe(catchError(this.handleError<Author>('addAuthor')));
   }
 
   deleteAuthor(idValue): Observable<Author> {
     console.log(idValue);
-    return this.http.delete<Author>(`${this.authorRootApiUrl}?id=${idValue}`)
+    return this.http.delete<Author>(`${this.authorsRootApiUrl}?id=${idValue}`)
     .pipe(catchError(this.handleError<Author>('deleteAuthor')));
   }
 

@@ -3,6 +3,6 @@ export interface Author {
     firstname: string;
     lastname: string;
     thumbnail_url?: string;
-    profile: string;
     email: string;
+    profile: string;
 }

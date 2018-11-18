@@ -4,7 +4,9 @@ const express = require('express'),
       cors = require('cors');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: true,
+}));
 
 const API_URI = "/api";
 

@@ -6,7 +6,7 @@ const express = require('express'),
 
 var db = admin.firestore();
 
-var categoryCollection = db.collection('category');
+var categoriesCollection = db.collection('categories');
 var articlesCollection = db.collection('articles');
 var authorsCollection = db.collection('authors');
 
@@ -39,8 +39,8 @@ module.exports = function() {
       
     
     
-    // GET array of articles by category     ->   /category/KQ6sO3ucXEpfXvjZ0ko3
-    router.get('/category/:id', (req, res) => {
+    // GET array of articles by a category     ->   /categories/dPjT5HAmjX4NUa7RNwWc
+    router.get('/categories/:id', (req, res) => {
         let categoryId = req.params.id;
         console.log(categoryId);
         if (typeof(categoryId === 'undefined')){
@@ -49,40 +49,29 @@ module.exports = function() {
                 res.status(500).json({error: "category is undefined"});
             }
         }
-        categoryCollection
+        categoriesCollection
             .doc(categoryId)
             .get()
             .then(articlesCollection
                 .where('category_id', '==', categoryId)
                 .get()
-                .then(snapshot => {
-                    let snapshotPromises = snapshot.docs.map(doc => {
-                        const authorId = doc.data().author_id;
-                        let articleData = doc.data();
-
-                        if (typeof authorId !== 'undefined') {
-                            const authorRef = authorsCollection.doc(authorId);
-                            return authorRef.get().then(authorSnapshot => {
-                                articleData.author = authorSnapshot.data();
-                                return articleData;
-                            });
-                        } else {
-                            return articleData;
-                        }
+                .then((result) => {
+                    let articleData = []
+                
+                    articleData = result.docs.map(value => {
+                        return value.data();
                     });
-
-                    Promise.all(snapshotPromises).then(results => {
-                        res.status(200).json(results);
-                    });
-                  })
-                )
+    
+                    res.status(200).json(articleData)
+                })                
                 .catch(err => {
                     console.log('Error getting documents', err);
-                }); 
+                })
+              )
             });
 
     // GET an array of articles by an author  ->  /author/CXanTuiKNdVYCPlIOkEr
-    router.get('/author/:id', (req, res) => {
+    router.get('/authors/:id', (req, res) => {
         let authorId = req.params.id;
         console.log(authorId);
         if (typeof(authorId === 'undefined')){
@@ -97,27 +86,15 @@ module.exports = function() {
             .then(articlesCollection
                 .where('author_id', '==', authorId)
                 .get()
-                .then(snapshot => {
-                    let snapshotPromises = snapshot.docs.map(doc => {
-                        const categoryId = doc.data().category_id;
-                        let articleData = doc.data();
-
-                        if (typeof categoryId !== 'undefined') {
-                            const categoryRef = categoryCollection.doc(categoryId);
-                            return categoryRef.get().then(categorySnapshot => {
-                                articleData.category = categorySnapshot.data();
-                                return articleData;
-                            });
-                        } else {
-                            return articleData;
-                        }
-                    });
-
-                    Promise.all(snapshotPromises).then(results => {
-                        res.status(200).json(results);
-                    });
-                  })
+                .then((result) => {
+                    let articleData = []
                 
+                    articleData = result.docs.map(value => {
+                        return value.data();
+                    });
+    
+                    res.status(200).json(articleData)
+                })                
                 .catch(err => {
                     console.log('Error getting documents', err);
                 })
@@ -126,9 +103,9 @@ module.exports = function() {
     
 
     // GET one article by id  ->   /article/A4286YJgTaSIkfxAl7O3
-    router.get('/article/:id', (req, res) => {
+    router.get('/articles/:id', (req, res) => {
         let idValue = req.params.id;
-        console.log(idValue);
+       
         if (typeof(idValue === 'undefined')){
             if (idValue === '' ){
                 console.log('article is undefined');
@@ -143,14 +120,19 @@ module.exports = function() {
             var returnResult = {
                 id: idValue,
                 category_id: result.data().category_id,
-                author_id: result.data().author_id,
+                category_name: result.data().category_name,
                 title : result.data().title,
-                thumbnail_url: result.data().thumbnail_url,
+                tags : result.data().tags,
+                author_id: result.data().author_id,
+                author_firstname: result.data().author_firstname,
+                author_lastname: result.data().author_lastname,
+                author_thumbnail_url: result.data().author_thumbnail_url,
                 post_date: result.data().post_date,
                 duration: result.data().duration,
-                tags: result.data().tags,
+                thumbnail_url: result.data().thumbnail_url,
+                summary: result.data().summary,
+                content: result.data().content,
                 image_url: result.data().image_url,
-                content: result.data().content
             }
             res.status(200).json(returnResult)
         })
@@ -173,11 +155,11 @@ module.exports = function() {
 
     /////////////////////////////////////////////////// UPDATE /////////////////////////////////////////////////////
     // Edit article
-    router.put('/article/:id', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
-        let idValue = req.params.id;
-        console.log(idValue);
+    router.put('/articles', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
         console.log(JSON.stringify(req.body));
         let article = {... req.body};
+        let idValue = req.params.id;        
+        console.log(idValue);       
         articlesCollection.doc(idValue).update(
             article,
             { merge: true });
@@ -186,7 +168,7 @@ module.exports = function() {
     });
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
-    router.delete('/delete/articles/:id', (req, res) => {
+    router.delete('/articles', (req, res) => {
         let idValue = req.params.id;
         articlesCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);

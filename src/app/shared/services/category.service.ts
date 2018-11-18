@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
 })
 
 export class CategoryService {
-  private categoryRootApiUrl = `${environment.api_url}/api/categories`; 
+  private categoriesRootApiUrl = `${environment.api_url}/api/categories`; 
   private editCategoryNameSource = new Subject<string>();
   editCategoryName$ = this.editCategoryNameSource.asObservable();
   
@@ -22,8 +22,14 @@ export class CategoryService {
 
   // GET an array of categories
   public getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.categoryRootApiUrl)
+    return this.http.get<Category[]>(this.categoriesRootApiUrl)
      .pipe(catchError(this.handleError<Category[]>('getCategories')));
+  }
+
+   //Get a single category by id
+   public getCategory(idValue): Observable<Category> {
+    return this.http.get<Category>(`${this.categoriesRootApiUrl}/${idValue}`)
+      .pipe(catchError(this.handleError<Category>('getCategory')));
   }
 
    editNameBroadcast(name: string) {
@@ -37,18 +43,18 @@ export class CategoryService {
   
   editCategory(details): Observable<Category> {
     console.log(details);
-    return this.http.put<Category>(this.categoryRootApiUrl, details)
+    return this.http.put<Category>(this.categoriesRootApiUrl, details)
      .pipe(catchError(this.handleError<Category>('editCategories')));
   }
 
   addCategory(category): Observable<Category> {
-    return this.http.post<Category>(this.categoryRootApiUrl, category)
+    return this.http.post<Category>(this.categoriesRootApiUrl, category)
     .pipe(catchError(this.handleError<Category>('addCategory')));
   }
 
   deleteCategory(idValue): Observable<Category> {
     console.log(idValue);
-    return this.http.delete<Category>(`${this.categoryRootApiUrl}?id=${idValue}`)
+    return this.http.delete<Category>(`${this.categoriesRootApiUrl}?id=${idValue}`)
     .pipe(catchError(this.handleError<Category>('deleteCategory')));
   }
 

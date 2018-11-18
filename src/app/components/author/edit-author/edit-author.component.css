@@ -25,8 +25,22 @@
   }
 
 .example-full-width {
-    width: 100%;
-    
+    width: 100%; 
+}
+
+mat-grid-tile {
+    margin-top: -2px;
+    margin-left: 80px;
+    height: 80px;
+    width: 80px;
+    border-radius: 5px 40px 5px;
+    border: 3px solid blue;
+    font-size: 10px;
+    text-align: center;
+}
+
+mat-icon {
+    margin-left: 90px;
 }
 
 .textarea {
@@ -38,16 +52,3 @@
     min-height: 80px;
     max-height: 300px;
 }
-/*
-.mat-grid-tile .mat-figure {
-    height: 50% !important;
-}
-.my-grid-tile {
-    height: 50% !important;
-}
-
-.example-margin {
-    margin: 0 40px;
-    left: 50%;
-    margin-left: -4em;
-}*/

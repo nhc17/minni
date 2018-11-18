@@ -34,8 +34,8 @@ module.exports = function() {
         }); 
     });
 
-    // Search by firstname & lastname    ->  /author?firstname=Charlie&lastname=Lim
-    router.get('/author', (req, res) => {
+    // Search by firstname & lastname    ->  api/authors/search?firstname=Charlie&lastname=Limmel
+    router.get('/authors/search', (req, res) => {
         let firstname = req.query.firstname;
         let lastname = req.query.lastname;
         console.log(firstname, lastname);
@@ -69,8 +69,8 @@ module.exports = function() {
     });
 
 
-    // GET an author by id     /authors/tqAnMjzk79TEZbCVWBIO
-    router.get('/authors/:id', (req, res) => {
+    // GET an author by id  ->   api/author/tqAnMjzk79TEZbCVWBIO
+    router.get('/author/:id', (req, res) => {
         let idValue = req.params.id;
         
         authorsCollection
@@ -82,6 +82,7 @@ module.exports = function() {
                     id: idValue,
                     firstname : result.data().firstname,
                     lastname: result.data().lastname,
+                    email: result.data().email,
                     profile: result.data().profile
                 }
                 res.status(200).json(returnResult)
@@ -106,10 +107,10 @@ module.exports = function() {
 
     /////////////////////////////////////////////////// UPDATE /////////////////////////////////////////////////////
     // Edit author
-    router.put('/authors', bp.urlencoded({ extended: true }), bp.json({ limit: "10MB" }), (req, res) => {
+    router.put('/authors', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
         console.log(JSON.stringify(req.body));
         let author = {... req.body};
-        let idValue = author.id
+        let idValue = author.id;
         console.log(idValue);
         authorsCollection.doc(idValue).update(
             author,
@@ -117,7 +118,6 @@ module.exports = function() {
             console.log(author) 
         res.status(200).json(author);
     });
-
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
     // Delete an author

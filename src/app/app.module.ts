@@ -14,6 +14,7 @@ import { EditCategoryComponent } from './components/category/edit-category/edit-
 import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
 import { EditArticleComponent } from './components/article/edit-article/edit-article.component';
+import { DeleteArticleDialog } from './components/article/article.component';
 import { MemberComponent } from './components/member/member.component';
 import { RegisterComponent } from './shared/security/register/register.component';
 import { LoginComponent } from './shared/security/login/login.component';
@@ -27,9 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/layout/header/header.component';
 import { MaterialModule } from './shared/layout/material.module';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { ArticleThumbnailPreloadDirective } from './shared/layout/img-preload/article-thumbnail-preload.directive';
+// import { ArticleThumbnailPreloadDirective } from './shared/layout/img-preload/article-thumbnail-preload.directive';
 import { MatSortModule,  MatPaginatorModule } from '@angular/material';
-import { QuillModule } from 'ngx-quill';
+
 
 
 // Services
@@ -72,8 +73,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     EditCategoryComponent,
     RegisterComponent,
     LoginComponent,
-    ArticleThumbnailPreloadDirective,
-    EditArticleComponent
+  //  ArticleThumbnailPreloadDirective,
+    EditArticleComponent,
+    DeleteArticleDialog
   ],
 
   imports: [
@@ -91,7 +93,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AngularFireAuthModule, 
     AngularFontAwesomeModule,
     MatSortModule, MatPaginatorModule,
-    QuillModule
    
   ],
 
@@ -108,7 +109,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
    
 
 ],
-  entryComponents: [DeleteAuthorDialog],
+  entryComponents: [DeleteAuthorDialog, DeleteArticleDialog],
   bootstrap: [AppComponent]
 })
 

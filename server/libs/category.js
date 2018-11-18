@@ -5,7 +5,7 @@ const express = require('express'),
 
 var db = admin.firestore();
 
-var categoryCollection = db.collection('category');
+var categoriesCollection = db.collection('categories');
 
 module.exports = function() {
 
@@ -13,7 +13,7 @@ module.exports = function() {
     /////////////////////////////////////////////////// READ /////////////////////////////////////////////////////
     // GET array of categories
     router.get('/categories', (req, res) => {
-        categoryCollection
+        categoriesCollection
         .get()
         .then(snapshot => {
             let categoriesArr = [];
@@ -33,8 +33,8 @@ module.exports = function() {
         });
     });
 
-    // GET a category by name   ->    /category?category_name=technology
-    router.get('/category', (req, res) => {
+    // GET a category by name   ->    api/categories/search?category_name=Technology
+    router.get('/categories/search', (req, res) => {
         let categoryName = req.query.category_name;
         console.log(categoryName);
 
@@ -45,7 +45,7 @@ module.exports = function() {
             }
         }
 
-        categoryCollection
+        categoriesCollection
             .where('category_name', '==', categoryName)
             .get()
             .then((result) => {
@@ -63,25 +63,47 @@ module.exports = function() {
             })
     });
 
+// GET a category by id  ->   api/category/tqAnMjzk79TEZbCVWBIO
+router.get('/category/:id', (req, res) => {
+    let idValue = req.params.id;
+    
+    categoriesCollection
+        .doc(idValue)
+        .get()
+        .then((result) => {
+            console.log(result.data());
+            var returnResult = {
+                id: idValue,
+                category_name : result.data().category_name
+            }
+            res.status(200).json(returnResult)
+        })
+        .catch(err => {
+            console.log('Error getting documents', err);
+            res.status(500).json(err);
+        })
+});
+
+
     /////////////////////////////////////////////////// CREATE /////////////////////////////////////////////////////
     // Add one category
-    router.post('/category', bp.urlencoded({ extended: true}), bp.json({ limit: "50MB" }), (req, res) => {
+    router.post('/categories', bp.urlencoded({ extended: true}), bp.json({ limit: "50MB" }), (req, res) => {
         let category = {... req.body };
         console.log(".....category" + JSON.stringify(category));
-        categoryCollection
+        categoriesCollection
             .add(category)
             .then(result => res.status(200).json("Category added"))
             .catch(error => res.status(500).json(error));
         })
 
     /////////////////////////////////////////////////// UPDATE /////////////////////////////////////////////////////
-    // Edit article
-    router.put('/category:id', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
-        let idValue = req.params.id;
-        console.log(idValue);
+    // Edit category
+    router.put('/categories', bp.urlencoded({ extended: true }), bp.json({ limit: "50MB" }), (req, res) => {
         console.log(JSON.stringify(req.body));
         let category= {... req.body};
-        categoryCollection.doc(idValue).update(
+        let idValue = req.params.id;
+        console.log(idValue);        
+        categoriesCollection.doc(idValue).update(
             category,
             { merge: true });
             console.log(category)
@@ -89,9 +111,9 @@ module.exports = function() {
     });
 
     /////////////////////////////////////////////////// DELETE /////////////////////////////////////////////////////
-    router.delete('/delete/category/:id', (req, res) => {
+    router.delete('/categories', (req, res) => {
         let idValue = req.params.id;
-        categoryCollection.doc(idValue).delete().then((result) => {
+        categoriesCollection.doc(idValue).delete().then((result) => {
             res.status(200).json(result);
         }).catch((error) => {
             res.status(500).json(error);

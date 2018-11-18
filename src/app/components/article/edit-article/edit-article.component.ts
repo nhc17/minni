@@ -89,7 +89,7 @@ export class EditArticleComponent implements OnInit  {
         thumbnail_url: this.multipleFilesUpload[0],
       }
       this.articleSvc.editArticle(articleObj).subscribe((result)=>{
-        let snackBarRef = this.snackSvc.open("Article edited", 'Done', {
+        let snackBarRef = this.snackSvc.open("Article updated", 'Done', {
           duration: 3000
         });
         this.editArticleForm.reset();
@@ -109,6 +109,4 @@ export class EditArticleComponent implements OnInit  {
           this.spinnerFlag = false;
       }
     }
-     
-  
 }

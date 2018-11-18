@@ -33,6 +33,7 @@ export class AuthorComponent implements OnInit {
     });
   }
 
+
   onEdit(idValue){
     console.log(idValue);
     this.router.navigate([`/Author/Edit/${idValue}`]);

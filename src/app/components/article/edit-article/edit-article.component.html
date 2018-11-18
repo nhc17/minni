@@ -1,13 +1,12 @@
-
 <mat-toolbar class="main-toolbar">
     <mat-toolbar-row>
-        <span>Edit Your Article</span>
+        <span>Edit Article</span>
         <span class="example-spacer"></span>
         <button mat-raised-button color="accent" (click)="onSubmit()">Save</button>
     </mat-toolbar-row>
 </mat-toolbar>
       
-<br><br>
+<div class="separator"></div>
       
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
     <form class="example-form" [formGroup]="editArticleForm">

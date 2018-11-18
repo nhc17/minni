@@ -8,13 +8,32 @@
                   <button mat-raised-button color="accent" (click)="onPublish()">Publish</button></div>                 
         </mat-toolbar-row>
       </mat-toolbar>
+
       <div class="separator"></div>
-      
+
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+
+        <mat-form-field> 
+            <mat-select placeholder="Search by category" [formControl]="categoriesControl">
+                <mat-option *ngFor="let category of categories"
+                            [value]="category"
+                            (click)="searchCategories(category)">{{ category }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <!-- Last name query. -->
+              <mat-form-field id="searchField">
+                <input matInput (keyup)="searchTerm$.next($event.target.value)" placeholder="Search by last name">
+                  <mat-hint fxLayoutAlign="center">Enter at least first 3 letters.</mat-hint>
+              </mat-form-field>
+        </div>
+
+        <div class="separator"></div>
+
 <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start center">
- <!--   <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
--->
+
       <mat-table  [dataSource]="dataSource" class="table" matSort>
              <!--   
             <ng-container matColumnDef="thumbnail_url">

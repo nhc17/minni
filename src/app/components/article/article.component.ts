@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
-
+import { CategoryComponent } from '../category/category.component';
+import { merge, Subject, Observable } from 'rxjs';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 export interface DialogData {
   id: string;
@@ -24,6 +27,14 @@ export class ArticleComponent implements OnInit {
   displayedColumns: string[] = [ 'category_name', 'title', 'author', 'post_date', 'summary', 'options'];
   dataSource = (new MatTableDataSource([]));
 
+  // For the categories search dropdown.
+ // public categories = categories;
+  public category: string;
+  public categoriesControl = new FormControl('');
+
+  // For last name query
+  public dataLength: number;
+  public searchTerm$ = new Subject<string>();
        
   @ViewChild(MatSort) sort: MatSort;
 
@@ -32,13 +43,14 @@ export class ArticleComponent implements OnInit {
   pageSizeOption: number[] = [5, 10, 20, 50];
   @ViewChild(MatPaginator) paginator: MatPaginator;
  
-  @ViewChild('filter') filter: ElementRef;
+  
 
   constructor(
     private articleSvc: ArticleService,
     private router: Router,
     public dialog: MatDialog,
-    private snackSvc: MatSnackBar) { }
+    private snackSvc: MatSnackBar,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{
@@ -55,11 +67,10 @@ export class ArticleComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
    }
 
-  
-
-
+ 
   
   onEdit(id){
     console.log(id);
@@ -102,8 +113,8 @@ export class ArticleComponent implements OnInit {
 }
 
 @Component({
-  selector: 'delete-Article-dialog',
-  templateUrl: 'Article-delete-dialog.html',
+  selector: 'delete-article-dialog',
+  templateUrl: 'article-delete-dialog.html',
 })
 export class DeleteArticleDialog {
 

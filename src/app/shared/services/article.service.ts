@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
 import { Article } from '../models/article';
-import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material';
 
@@ -24,22 +24,33 @@ export class ArticleService {
     .pipe(catchError(this.handleError<Article[]>('getArticles')));
   }
 
+  // GET an array of articles by Category
+  public getArticlesbyCategory(idValue): Observable<Article[]> {
+  return this.http.get<Article[]>(`${this.articlesRootApiUrl}/${idValue}`)
+  .pipe(catchError(this.handleError<Article[]>('getArticlesbyCategory')));
+}
   
-//Get a single article
-public getArticle(idValue): Observable<Article> {
-  return this.http.get<Article>(`${this.articlesRootApiUrl}/${idValue}`)
-    .pipe(catchError(this.handleError<Article>('getArticle')));
+ // GET an array of articles by Author
+ public getArticlesbyAuthor(idValue): Observable<Article[]> {
+  return this.http.get<Article[]>(`${this.articlesRootApiUrl}/${idValue}`)
+  .pipe(catchError(this.handleError<Article[]>('getArticlesbyAuthor')));
 }
 
-
-publishArticle(article): Observable<Article> {
-    return this.http.post<Article>(this.articlesRootApiUrl, article)
-     .pipe(catchError(this.handleError<Article>('publishArticles')));
+  //Get a single article
+  public getArticle(idValue): Observable<Article> {
+    return this.http.get<Article>(`${this.articlesRootApiUrl}/${idValue}`)
+      .pipe(catchError(this.handleError<Article>('getArticle')));
   }
 
- editArticle(id): Observable<Article> {
-    console.log(id);
-    return this.http.put<Article>(this.articlesRootApiUrl, id)
+
+  publishArticle(article): Observable<Article> {
+      return this.http.post<Article>(this.articlesRootApiUrl, article)
+      .pipe(catchError(this.handleError<Article>('publishArticles')));
+    }
+
+  editArticle(details): Observable<Article> {
+    console.log(details);
+    return this.http.put<Article>(this.articlesRootApiUrl, details)
      .pipe(catchError(this.handleError<Article>('editArticle')));
   }
 
