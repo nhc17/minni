@@ -6,6 +6,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AuthorComponent } from './components/author/author.component';
 import { AddAuthorComponent } from './components/author/add-author/add-author.component';
+import { SearchAuthorComponent } from './components/author/search-author/search-author.component';
 import { EditAuthorComponent } from './components/author/edit-author/edit-author.component';
 import { DeleteAuthorDialog } from './components/author/author.component';
 import { CategoryComponent } from './components/category/category.component';
@@ -15,7 +16,7 @@ import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
 import { EditArticleComponent } from './components/article/edit-article/edit-article.component';
 import { DeleteArticleDialog } from './components/article/article.component';
-import { MemberComponent } from './components/member/member.component';
+//import { MemberComponent } from './components/member/member.component';
 import { RegisterComponent } from './shared/security/register/register.component';
 import { LoginComponent } from './shared/security/login/login.component';
 import { ChangePasswordComponent } from './shared/security/change-password/change-password.component';
@@ -65,6 +66,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
     AppComponent,
     HeaderComponent,
     AuthorComponent,
+    SearchAuthorComponent,
     AddAuthorComponent,
     EditAuthorComponent,
     DeleteAuthorDialog,
@@ -75,7 +77,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
-    MemberComponent,    
+   // MemberComponent,    
     RegisterComponent,
     LoginComponent,
     ChangePasswordComponent,
