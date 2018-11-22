@@ -4,11 +4,11 @@
       <span class="example-spacer"></span>
       <div class="add-searchBtn" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2vw">
             <button mat-raised-button color="accent" (click)="onAdd()">Add</button>
-            <button mat-raised-button color="accent" (click)="onSearch((author.id)">Search</button></div>
+            <button mat-raised-button color="accent" (click)="onSearch(author.id)">Search</button></div>
   </mat-toolbar-row>
 </mat-toolbar>
 <div class="separator"></div>
-<mat-grid-list class="author-details" *ngFor="let author of authors | async" cols="4">
+<mat-grid-list class="author-details" *ngFor="let author of authors" cols="4">
     <mat-grid-tile colspan="1" rowspan="1">
      <img src="{{author.result.thumbnail_url}}"/>
     </mat-grid-tile>
