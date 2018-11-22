@@ -9,7 +9,7 @@
   <div class="separator"></div>
   
   <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
-        <form class="example-form" [formGroup]="editAuthorForm">
+        <form class="example-form" [formGroup]="searchAuthorForm">
                 <mat-form-field class="example-full-width">
                   <input matInput placeholder="First Name" formControlName="firstname">
                 </mat-form-field>
@@ -37,5 +37,4 @@
                   <button mat-raised-button color="warn" (click)="onDelete(author.id, author.result.firstname, author.result.lastname)">Delete</button>
               </div>
           </mat-grid-tile>
-      </mat-grid-list>
-      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+     </mat-grid-list>

@@ -12,6 +12,7 @@ import { DeleteAuthorDialog } from './components/author/author.component';
 import { CategoryComponent } from './components/category/category.component';
 import { AddCategoryComponent } from './components/category/add-category/add-category.component';
 import { EditCategoryComponent } from './components/category/edit-category/edit-category.component';
+import { DeleteCategoryDialog } from './components/category/category.component';
 import { ArticleComponent } from './components/article/article.component';
 import { PublishComponent } from './components/article/publish/publish.component';
 import { EditArticleComponent } from './components/article/edit-article/edit-article.component';
@@ -77,6 +78,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
     CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    DeleteCategoryDialog,
    // MemberComponent,    
     RegisterComponent,
     LoginComponent,
