@@ -18,7 +18,9 @@ import { DeleteArticleDialog } from './components/article/article.component';
 import { MemberComponent } from './components/member/member.component';
 import { RegisterComponent } from './shared/security/register/register.component';
 import { LoginComponent } from './shared/security/login/login.component';
-
+import { ChangePasswordComponent } from './shared/security/change-password/change-password.component';
+import { ForgotPasswordComponent } from './shared/security/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './shared/security/reset-password/reset-password.component';
 
 // Reactive Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +42,7 @@ import { MatFileUploadModule } from './shared/mat-file-upload/matFileUpload.modu
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material';
 import { environment } from '../environments/environment';
-
+import { NgxLocalStorageModule } from 'ngx-localstorage';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -50,11 +52,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-// Firebase Authentication
+// Firebase 
 import { AngularFireModule} from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 
 @NgModule({
@@ -63,19 +66,23 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     HeaderComponent,
     AuthorComponent,
     AddAuthorComponent,
+    EditAuthorComponent,
     DeleteAuthorDialog,
     ArticleComponent,
-    CategoryComponent,
-    MemberComponent,
     PublishComponent,
-    EditAuthorComponent,
+    EditArticleComponent,
+    DeleteArticleDialog,
+    CategoryComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    MemberComponent,    
     RegisterComponent,
     LoginComponent,
+    ChangePasswordComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   //  ArticleThumbnailPreloadDirective,
-    EditArticleComponent,
-    DeleteArticleDialog
+    
   ],
 
   imports: [
@@ -83,6 +90,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    RoutingModule,
     SharedModule,
     MaterialModule,
     HttpClientModule,
@@ -90,12 +98,17 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     PerfectScrollbarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, 
+    AngularFireStorageModule,
     AngularFontAwesomeModule,
+    AngularFireMessagingModule,
+    NgxLocalStorageModule.forRoot(),
     MatSortModule, MatPaginatorModule,
-    RoutingModule
+    
   ],
 
   providers: [
+
+     AngularFirestore,
     
     { 
       provide: MAT_CHIPS_DEFAULT_OPTIONS,

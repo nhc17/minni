@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { AuthorComponent } from './components/author/author.component';
+import { SearchAuthorComponent } from './components/author/search-author/search-author.component';
 import { AddAuthorComponent } from './components/author/add-author/add-author.component';
 import { EditAuthorComponent } from './components/author/edit-author/edit-author.component';
 import { ArticleComponent } from './components/article/article.component';
@@ -29,6 +30,10 @@ const appRoutes = [
     {
         path: 'Author',
         component: AuthorComponent,
+    },
+    {
+        path: 'Author/Search/:id',
+        component: SearchAuthorComponent,
     },
     {
         path: 'Author/Add',

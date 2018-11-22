@@ -20,6 +20,7 @@ export interface DialogData {
 export class AuthorComponent implements OnInit {
 
   authors: Author[];
+  author: Author;
 
   constructor(
     private router: Router,
@@ -43,6 +44,10 @@ export class AuthorComponent implements OnInit {
     this.router.navigate(['/Author/Add']);
   }
 
+  onSearch(idValue){
+    console.log(idValue);
+    this.router.navigate([`/Author/Search/${idValue}`]);
+  }
   
   onDelete(idValue, firstname, lastname) {
     const dialogRef = this.dialog.open(DeleteAuthorDialog, {

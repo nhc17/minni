@@ -1,14 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Router,  ActivatedRoute } from '@angular/router';
 import { ArticleService } from '../../shared/services/article.service';
 import { Article} from '../../shared/models/article';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
-import { CategoryComponent } from '../category/category.component';
-import { merge, Subject, Observable } from 'rxjs';
+
 
 
 
@@ -16,6 +14,7 @@ export interface DialogData {
   id: string;
   title: string;
 }
+
 
 @Component({
   selector: 'app-article',
@@ -29,15 +28,18 @@ export class ArticleComponent implements OnInit {
   displayedColumns: string[] = [ 'category_name', 'title', 'author', 'post_date', 'summary', 'options'];
   dataSource = (new MatTableDataSource([]));
 
-         
+  
+  
   @ViewChild(MatSort) sort: MatSort;
 
+  // paginator
   length = 100;
   pageSize = 5;
   pageSizeOption: number[] = [5, 10, 20, 50];
   @ViewChild(MatPaginator) paginator: MatPaginator;
  
   
+  filterValue = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,22 +51,21 @@ export class ArticleComponent implements OnInit {
   ngOnInit() {
     this.articleSvc.getArticles().subscribe((result)=>{
         this.articles = result;
-        this.dataSource = new MatTableDataSource(result);    
-    });
+        this.dataSource = new MatTableDataSource(result);   
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator; 
+    }); 
   }
-
   
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
 
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filter = filterValue;
    }
 
- 
+  onKey(event: any) {
+    this.filterValue += event.target.value;
+  }
   
   onEdit(idValue){
     console.log(idValue);

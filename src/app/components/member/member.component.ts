@@ -1,3 +1,4 @@
+/*  Will implement in future
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,3 +14,5 @@ export class MemberComponent implements OnInit {
   }
 
 }
+
+*/

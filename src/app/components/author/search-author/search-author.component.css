@@ -18,16 +18,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 100px;
     padding-left: 20px;
     padding-right: 20px;
   }
 
 .example-full-width {
     width: 100%; 
-    padding: 10px;
 }
 
-.btn {
-    padding-left: 20px;
+mat-grid-tile {
+    margin-top: -2px;
+    margin-left: 80px;
+    height: 80px;
+    width: 80px;
+    border-radius: 5px 40px 5px;
+    border: 3px solid blue;
+    font-size: 10px;
+    text-align: center;
 }
+
+

@@ -71,7 +71,7 @@ export class EditAuthorComponent implements OnInit {
       profile: this.editAuthorForm.get("profile").value,
       thumbnail_url: this.multipleFilesUpload[0], 
     }
-    this.authorSvc.editAuthor(authorObj).subscribe((result)=>{
+    this.authorSvc.editAuthor(authorObj).subscribe((result) => {
       let snackBarRef = this.snackSvc.open("Author updated", 'Done', {
         duration: 3000
       });

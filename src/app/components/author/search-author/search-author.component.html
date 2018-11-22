@@ -1,0 +1,41 @@
+<mat-toolbar class="main-toolbar">
+    <mat-toolbar-row>
+        <span>Search for an Author</span>
+        <span class="example-spacer"></span>
+        <button mat-raised-button color="accent" (click)="onSubmit()">Search</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <div class="separator"></div>
+  
+  <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+        <form class="example-form" [formGroup]="editAuthorForm">
+                <mat-form-field class="example-full-width">
+                  <input matInput placeholder="First Name" formControlName="firstname">
+                </mat-form-field>
+  
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Last Name" formControlName="lastname">
+                </mat-form-field>
+        </form>
+  <div>
+  
+      <div class="separator"></div>
+      <mat-grid-list class="author-details" *ngFor="let author of authors || async" cols="4">
+          <mat-grid-tile colspan="1" rowspan="1">
+           <img src="{{author.result.thumbnail_url}}"/>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="1">
+              <div>
+                  <h2>{{author.result.firstname}}  {{author.result.lastname}}</h2>
+                  <p>{{author.result.profile}}</p>
+              </div>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1" rowspan="1">
+              <div class="editBtn">
+                  <button mat-raised-button color="primary" (click)="onEdit(author.id)">Edit</button>
+                  <button mat-raised-button color="warn" (click)="onDelete(author.id, author.result.firstname, author.result.lastname)">Delete</button>
+              </div>
+          </mat-grid-tile>
+      </mat-grid-list>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>

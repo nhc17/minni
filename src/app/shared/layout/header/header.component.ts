@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';  //open source authentication wrapper
+import { auth } from 'firebase/app'; // the object that does the authentication
 
 @Component({
   selector: 'app-header',
@@ -8,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router:  Router) { }
+  constructor(
+    private router: Router,
+    public afAuth: AngularFireAuth,
+    private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -35,5 +41,10 @@ export class HeaderComponent implements OnInit {
 
   navigateToPublish(){
     this.router.navigate(['/Publish']);
+  }
+
+  logout(){
+    this.afAuth.auth.signOut().then(result=>this.authService.destroyToken());
+    this.router.navigate(['/Article']);
   }
 }

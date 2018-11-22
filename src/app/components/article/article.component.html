@@ -2,32 +2,36 @@
         <mat-toolbar-row>
             <span>Articles</span>
             <span class="example-spacer"></span>
-            <div class="add-searchBtn" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2vw">
-                <!--  <button mat-raised-button color="accent" (click)="onAdd()">Add</button> -->
-                  <button mat-raised-button color="accent" (click)="onSearch()">Search</button>
-                  <button mat-raised-button color="accent" (click)="onPublish()">Publish</button></div>                 
+            <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2vw">
+                <button mat-raised-button color="accent" (click)="onPublish()">Publish</button></div>                 
         </mat-toolbar-row>
       </mat-toolbar>
 
       <div class="separator"></div>
 
-<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start center">
+<div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="3%" fxLayoutAlign="center">
+        <div class="separator"></div>
+        <div class="search-container">
+                <mat-form-field class="searchfield">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                </mat-form-field>
+            </div>
 
       <mat-table  [dataSource]="dataSource" class="table" matSort>
              
             <ng-container matColumnDef="thumbnail_url">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>>
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>>
                 <mat-cell *matCellDef="let article"> <img src="{{ article.result.thumbnail_url || defaultImg_url }}" onError="this.defaultImg_url" class="img"/> </mat-cell>>
             </ng-container>
         
             <ng-container matColumnDef="category_name">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Category </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{ article.result.category_name }} </mat-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.category_name }} </mat-cell>>
             </ng-container>
         
             <ng-container matColumnDef="title">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>>
-                <mat-cell *matCellDef="let article"> {{ article.result.title }} </mat-cell>>
+                <mat-cell *matCellDef="let article"> {{article.result.title }} </mat-cell>>
             </ng-container>
                     
             <ng-container matColumnDef="author">
@@ -48,9 +52,9 @@
             <ng-container matColumnDef="options">
                 <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
                 <mat-cell *matCellDef="let article">
-                    <div class="editBtn">
-                        <button mat-raised-button color="primary" (click)="onEdit(article.id)">Edit</button>
-                        <button mat-raised-button color="warn" (click)="onDelete(article.id, article.result.title)">Delete</button>
+                    <div fxLayout="column" fxLayoutGap="10%" class="btns">
+                        <button mat-raised-button color="primary" (click)="onEdit(article.id)"><mat-icon>edit</mat-icon></button>
+                        <button mat-raised-button color="warn" (click)="onDelete(article.id, article.result.title)"><mat-icon>delete</mat-icon></button>
                     </div>
                 </mat-cell>
             </ng-container>
@@ -60,11 +64,11 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>>
         </mat-table>
-    
-        <mat-paginator [length]="length"
+    </div> 
+            <mat-paginator [length]="length"
                     [pageSize]="pageSize"
                     [pageSizeOptions]="pageSizeOptions" 
                     showFirstLastButtons>
-        </mat-paginator>
+           </mat-paginator>
         
-</div>   
+  

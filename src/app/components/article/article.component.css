@@ -1,6 +1,6 @@
 
 .example-spacer {
-    flex: 1 1 auto;
+    flex: 0.9 0.9 auto;
 }
 
 .separator {
@@ -9,6 +9,18 @@
     justify-content: space-around;
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.container {
+    padding-top: 30px;
+    padding-left: 20px;
+    width: 100%;
+}
+
+.search-container {
+    
+    padding-left: 30%;
+    width: 60%;
 }
 
 img {
@@ -20,5 +32,10 @@ img {
 
 .table {
     padding-top: 20px;
+    padding-left: 20px;
     width: 100%;
+}
+
+.btns {
+    padding-left: 30px;
 }
